@@ -1,0 +1,6 @@
+#ifndef INTERCROSSING_HAPLOTYPE_TO_MARKER_HEADER_GUARD
+#define INTERCROSSING_HAPLOTYPE_TO_MARKER_HEADER_GUARD
+template<int nFounders, int maxAlleles, bool infiniteSelfing> struct intercrossingHaplotypeToMarker;
+#include "intercrossingHaplotypeToMarkerInfiniteSelfing.h"
+#include "intercrossingHaplotypeToMarkerFiniteSelfing.h"
+#endif
