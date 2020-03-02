@@ -1,5 +1,5 @@
-8d1f61cce2a06238e8f72cad78f580fd *DESCRIPTION
-0096b799106d0c3a51cf97140d0294ea *NAMESPACE
+147141ee5432ca1fc3e06bad3da5c9c0 *DESCRIPTION
+699e9f2656fa26e50411dca8264764a6 *NAMESPACE
 29437d98ffa268c073a9ce72cedad350 *R/Pillai.R
 17f848a9c25149fca00a59c940f61ba5 *R/Rcpp_exceptions.R
 02594621534b024fec0425bd74ccc1a5 *R/addExtraMarkerFromRawCall.R
@@ -74,7 +74,7 @@ e81a68325ee8b600fdb0f554efacfeea *R/orderCross.R
 e416ab57ace996bba9d33753862a66cb *R/pedigreeGraph.R
 60247d6acc4d5937d2f5b5ea9ee6e3e2 *R/pedigreeToGraph.R
 f3d51d3b35743f054ac2cc5f5342c656 *R/plot.R
-43376b1db9b28082d5aab6a2bc2f4517 *R/plotMosaic.R
+2937801e7d2b5532d568fccef5ee7ec6 *R/plotMosaic.R
 6cce7fbc05fb31a1bd0db3bcf1e2f291 *R/plotProbabilities.R
 a12c78aa23eae38f206cc3e84a46aa10 *R/print.R
 54adfeb4bc1d88002621dfe11517341d *R/probabilityData.R
@@ -86,7 +86,7 @@ bdb2b4577c03ad938a552090d54b2914 *R/reorderPedigree.R
 31119abd3808b7c4f9ec7ed6e213d229 *R/reverseChromosomes.R
 651b86bc0f79e6ac4d44a8cfdfef5a05 *R/rf-class.R
 3eb56c0831317a0a4b26941c5f255dcf *R/rilPedigree.R
-f996853d9b44de9869e7b8a775399029 *R/roxygen.R
+1c714e64c8e902302666204b937123b1 *R/roxygen.R
 681594a8426b2b46d61325013bc2c29e *R/selfing.R
 782ebc6db2c583247ffe64ba14ecf598 *R/show.R
 4aab24ef8961e670e9ce81c261bdfc00 *R/simulateMPCross.R
@@ -108,7 +108,7 @@ b9f289924256e8ed96c696e7c1f85471 *build/vignette.rds
 cb14c638b1808fbb34e518461a53a1d6 *data/wsnp_Ku_rep_c103074_89904851.RData
 6803f89a860e304518ce283032bb917f *inst/doc/mpMap2.R
 6a53c4d147a635370403b2b5931d3d33 *inst/doc/mpMap2.Rnw
-12eecd8a3e65084cf1a7ea03e7425fa0 *inst/doc/mpMap2.pdf
+ca62f3b7486ced93225f38c16b14bc05 *inst/doc/mpMap2.pdf
 f31584b418c8f31ec8efe20c8eb6af2a *inst/generateDatasets/generateExample1.R
 edd6d59d5e176e57cc4e09c13f160711 *inst/mathematica/finiteSelfingIntercrossing16Way.nb
 961ab9788a668f1b178d9a0d1798d2cc *inst/mathematica/finiteSelfingIntercrossing16Way.states
@@ -315,7 +315,7 @@ bbd399cb407240d33ffe1bd3d87e9da3 *src/impossibleDataException.h
 669709fdbe331e8e26a3e8d5e77aef3d *src/impute.h
 2871edb0fad39a18a16ad58fbb153169 *src/imputeFounders.cpp
 58b9b1a4b713787eb90402c1bf6f63f5 *src/imputeFounders.h
-180907968213ccf21646011f63b43d95 *src/intercrossingAndSelfingGenerations.cpp
+75bea7be059b8883df6d1cda47eefbc6 *src/intercrossingAndSelfingGenerations.cpp
 251ddf4b844838d49a9acd180ae3e05e *src/intercrossingAndSelfingGenerations.h
 62cd61d8257fc846804ca4e3c8b7e108 *src/intercrossingHaplotypeToMarker.h
 7dbcfb11e7d0422d52ce063a7523b3ca *src/intercrossingHaplotypeToMarkerFiniteSelfing.h
