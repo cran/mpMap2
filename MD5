@@ -1,4 +1,4 @@
-135dc57f8330d6d2ae30ce6a702e85b7 *DESCRIPTION
+71c429779b4362b3c145bb212f0a9755 *DESCRIPTION
 699e9f2656fa26e50411dca8264764a6 *NAMESPACE
 29437d98ffa268c073a9ce72cedad350 *R/Pillai.R
 17f848a9c25149fca00a59c940f61ba5 *R/Rcpp_exceptions.R
@@ -108,7 +108,7 @@ bdb2b4577c03ad938a552090d54b2914 *R/reorderPedigree.R
 cb14c638b1808fbb34e518461a53a1d6 *data/wsnp_Ku_rep_c103074_89904851.RData
 6803f89a860e304518ce283032bb917f *inst/doc/mpMap2.R
 6a53c4d147a635370403b2b5931d3d33 *inst/doc/mpMap2.Rnw
-7d70e70be0c3974f9d6c85ba29da21e9 *inst/doc/mpMap2.pdf
+cf198ee573d110bbe5733fb69bc644c7 *inst/doc/mpMap2.pdf
 f31584b418c8f31ec8efe20c8eb6af2a *inst/generateDatasets/generateExample1.R
 edd6d59d5e176e57cc4e09c13f160711 *inst/mathematica/finiteSelfingIntercrossing16Way.nb
 961ab9788a668f1b178d9a0d1798d2cc *inst/mathematica/finiteSelfingIntercrossing16Way.states
@@ -224,7 +224,7 @@ a2487b74ea8f009ffb322b58f1de13df *man/twoParentPedigree.Rd
 b0d42696c9e869c6de0b0ed80d841930 *src/alleleDataErrors.cpp
 446c00b8438b3a11b377d911ce8bac77 *src/alleleDataErrors.h
 96c14cd2294ed621bdb0685f5437a378 *src/array2.h
-98a9d504cfba203b21ffb094381b3615 *src/arsa.cpp
+02d3f0c5f10fede486d025b29af3316c *src/arsa.cpp
 8fd9483441e99fb76c0726fe86c04cd4 *src/arsa.h
 f9f350d8cc74b1c2a4c5fd4f60a7ca22 *src/arsaRaw.cpp
 e9fbc662756d64262a99c20f22a285d0 *src/arsaRaw.h
@@ -310,7 +310,7 @@ f7c8ee9f329617f685466a214365d6bc *src/hclustMatrices.cpp
 f72ce4a7a664ae99bed58c687077a5fc *src/identC.cpp
 117d94f1b4b1657f9bcd1a0d895555a0 *src/identC.h
 bbd399cb407240d33ffe1bd3d87e9da3 *src/impossibleDataException.h
-934c7af034d30e83dca282a300afc137 *src/impute.cpp
+00dd110ab78ade9ea6158e31ef7b484e *src/impute.cpp
 669709fdbe331e8e26a3e8d5e77aef3d *src/impute.h
 2871edb0fad39a18a16ad58fbb153169 *src/imputeFounders.cpp
 58b9b1a4b713787eb90402c1bf6f63f5 *src/imputeFounders.h
@@ -409,7 +409,7 @@ ca1755e89d8422b1ae460abef569ef37 *tests/slow/test-estimateRfSingle8Parent.R
 ec6968cf0ea407517edc46da3d0a00a5 *tests/slow/test-imputeTheta.R
 9f2d28202e2216209da7b0fa8589f1a7 *tests/slow/test-openmp.R
 ea1130c34ffe9a5a2b01ae1c25319229 *tests/slow/test-order.R
-550eefa0bb58a3553882d32b87ebec19 *tests/testthat.R
+172a60bb7125f009c4ca9a8f49b13953 *tests/testthat.R
 ecbda0a26f8893355ae6fdcc83bea51e *tests/testthat/test-addExtraMarkerFromRawCall.R
 d58b02e50aad012aa7821b03e994afc8 *tests/testthat/test-addMpcross.R
 b4ecdedff93cdba4019dbf88666dc6cb *tests/testthat/test-addMpcrossRf.R
