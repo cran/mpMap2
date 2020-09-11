@@ -13,7 +13,7 @@
 	{
 		if(errorProb != errorProb || errorProb != 0)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		//Compute forward probabilities
 		int startMarkerIndex = allPositions.markerIndices[startPosition];
@@ -147,7 +147,7 @@
 	{
 		if(errorProb != errorProb || errorProb <= 0 || errorProb >= 1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		//Compute forward probabilities
 		int startMarkerIndex = allPositions.markerIndices[startPosition];

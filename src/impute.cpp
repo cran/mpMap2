@@ -4,6 +4,7 @@
 #include <math.h>
 #include <limits>
 #include <sstream>
+#include "throwInternal.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -432,7 +433,7 @@ BEGIN_RCPP
 		}
 		else
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 	}
 	if(verbose)

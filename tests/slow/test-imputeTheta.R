@@ -39,7 +39,7 @@ test_that("Check that impute throws an error if imputation doesn't work",
 		thetaAsMatrix[,1] <- thetaAsMatrix[1,] <- NA
 		groupedWithNA@rf@theta <- as(thetaAsMatrix, "rawSymmetricMatrix")
 
-		.Call("omp_set_num_threads", 16, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		expect_error(imputed <- impute(groupedWithNA))
 
 		.Call("omp_set_num_threads", 1, PACKAGE="mpMap2")
@@ -59,7 +59,7 @@ test_that("Check that impute copies the most closely linked data",
 		thetaAsMatrix[(-1):(-3),1] <- thetaAsMatrix[1,(-1):(-3)] <- NA
 		groupedWithNA@rf@theta <- as(thetaAsMatrix, "rawSymmetricMatrix")
 
-		.Call("omp_set_num_threads", 16, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		imputed <- impute(groupedWithNA)
 		expect_identical(imputed@lg@imputedTheta[[1]][4:11, 1, drop=TRUE], imputed@lg@imputedTheta[[1]][4:11, 2, drop=TRUE])
 		expect_identical(imputed@lg@imputedTheta[[1]][1, 4:11, drop=TRUE], imputed@lg@imputedTheta[[1]][2, 4:11, drop=TRUE])
@@ -74,7 +74,7 @@ test_that("Check that impute copies the most closely linked data",
 		thetaAsMatrix[1:3, 2] <- NA
 		groupedWithNA@rf@theta <- as(thetaAsMatrix, "rawSymmetricMatrix")
 
-		.Call("omp_set_num_threads", 16, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		imputed <- impute(groupedWithNA)
 		expect_identical(imputed@lg@imputedTheta[[1]][4:11, 1, drop=TRUE], imputed@lg@imputedTheta[[1]][4:11, 3, drop=TRUE])
 		expect_identical(imputed@lg@imputedTheta[[1]][1, 4:11, drop=TRUE], imputed@lg@imputedTheta[[1]][3, 4:11, drop=TRUE])

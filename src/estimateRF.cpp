@@ -4,6 +4,7 @@
 #include "estimateRFSpecificDesign.h"
 #include <stdexcept>
 #include "matrixChunks.h"
+#include "throwInternal.h"
 SEXP estimateRF(SEXP object_, SEXP recombinationFractions_, SEXP markerRows_, SEXP markerColumns_, SEXP lineWeights_, SEXP keepLod_, SEXP keepLkhd_, SEXP gbLimit_, SEXP verbose_)
 {
 	BEGIN_RCPP
@@ -192,8 +193,9 @@ SEXP estimateRF(SEXP object_, SEXP recombinationFractions_, SEXP markerRows_, SE
 		//This is not an Rcpp::NumericVector because it can quite easily overflow the size of such a vector (signed int)
 		std::vector<double> result(valuesToEstimateInChunk * nRecombLevels, 0);
 
-		//Construct vector of rfhaps_internal_args objects
 		triangularIterator startPosition(markerRows, markerColumns);
+		std::vector<std::pair<int, int> > pairsToEstimate;
+		//Construct vector of rfhaps_internal_args objects
 		std::vector<rfhaps_internal_args> internalArgumentObjects;
 		for(int i = 0; i < nDesigns; i++)
 		{
@@ -243,11 +245,11 @@ SEXP estimateRF(SEXP object_, SEXP recombinationFractions_, SEXP markerRows_, SE
 			}
 			//This has to be copied / swapped in, because it's a local temporary at the moment
 			args.lineWeights.swap(lineWeightsThisDesign);
-			rfhaps_internal_args internalArgs(args.recombinationFractions, startPosition);
+			rfhaps_internal_args internalArgs(args.recombinationFractions);
 			internalArgs.markerRows = &markerRows;
 			internalArgs.markerColumns = &markerColumns;
 
-			bool converted = toInternalArgs(std::move(args), internalArgs, error);
+			bool converted = toInternalArgs(args, internalArgs, error);
 			if(!converted)
 			{
 				std::stringstream ss;
@@ -297,21 +299,30 @@ SEXP estimateRF(SEXP object_, SEXP recombinationFractions_, SEXP markerRows_, SE
 					}
 				};
 		}
-		unsigned long long counter = 0;
+		//This progressCounter bit may be dodgy if there is more than one design, have to check 
+		unsigned long long progressCounter = 0;
 		for(R_xlen_t offset = 0; offset < nValuesToEstimate; offset += valuesToEstimateInChunk)
 		{
 			R_xlen_t valuesToEstimateInCurrentChunk = std::min(valuesToEstimateInChunk, nValuesToEstimate - offset);
+			R_xlen_t counter = valuesToEstimateInCurrentChunk;
+			pairsToEstimate.clear();
+			while(counter > 0)
+			{
+				pairsToEstimate.push_back(startPosition.get());
+				startPosition.next();
+				counter--;
+			}
+
 			if(offset != 0) memset(resultPtr, 0, result.size() * sizeof(double));
 			//Now the actual computation)
 			for(int i = 0; i < nDesigns; i++)
 			{
 				internalArgumentObjects[i].result = resultPtr;
-				internalArgumentObjects[i].valuesToEstimateInChunk = valuesToEstimateInCurrentChunk;
-				internalArgumentObjects[i].startPosition = startPosition;
 				internalArgumentObjects[i].updateProgress = updateProgress;
+				internalArgumentObjects[i].pairsToEstimate = &pairsToEstimate;
 				std::string error;
-				bool successful = estimateRFSpecificDesign(internalArgumentObjects[i], counter);
-				if(!successful) throw std::runtime_error("Internal error");
+				bool successful = estimateRFSpecificDesign(internalArgumentObjects[i], progressCounter);
+				if(!successful) THROWINTERNAL();
 			}
 			//now for some post-processing to get out the MLE, lod (maybe) and lkhd (maybe)
 			R_xlen_t endValue = std::min(nValuesToEstimate, offset + valuesToEstimateInCurrentChunk);
@@ -337,11 +348,6 @@ SEXP estimateRF(SEXP object_, SEXP recombinationFractions_, SEXP markerRows_, SE
 				theta(counter) = currentTheta;
 				if(keepLkhd) lkhd(counter) = max;
 				if(keepLod) lod(counter) = currentLod;
-			}
-			while(valuesToEstimateInCurrentChunk > 0)
-			{
-				startPosition.next();
-				valuesToEstimateInCurrentChunk--;
 			}
 		}
 		if(verbose)

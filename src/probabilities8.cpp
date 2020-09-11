@@ -1,3 +1,4 @@
+#include "throwInternal.h"
 #include "probabilities8.h"
 #include <cmath>
 #include <stdexcept>
@@ -395,7 +396,7 @@ template<> void genotypeProbabilitiesNoIntercross<8, false>(std::array<double, 4
 #ifdef INTERNAL_CHECKS
         double sum = 0;
         for(int i = 0; i < 46; i++) sum += prob[i] * stateCounts[i];
-	if(fabs(sum - 1) > 1e-6) throw std::runtime_error("Internal error");
+	if(fabs(sum - 1) > 1e-6) THROWINTERNAL();
 #endif
 }
 template<> void genotypeProbabilitiesWithIntercross<8, true>(std::array<double, 3>& prob, int nAIGenerations, double r, int, std::size_t nFunnels)
@@ -605,7 +606,7 @@ template<> void genotypeProbabilitiesWithIntercross<8, false>(std::array<double,
 #ifdef INTERNAL_CHECKS
 	double sum = 0;
 	for(int i = 0; i < 46; i++) sum += prob[i];
-	if(fabs(sum - 1) > 1e-6) throw std::runtime_error("Internal error");
+	if(fabs(sum - 1) > 1e-6) THROWINTERNAL();
 #endif
 	//This is because we combined some states (see mathematica code)
 	prob[0] /= 8;

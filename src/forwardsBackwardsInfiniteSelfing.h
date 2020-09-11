@@ -1,5 +1,6 @@
 #ifndef FORWARDS_BACKWARDS_INFINITE_SELFING_HEADER_GUARD
 #define FORWARDS_BACKWARDS_INFINITE_SELFING_HEADER_GUARD
+#include "throwInternal.h"
 #include "intercrossingAndSelfingGenerations.h"
 #include "recodeFoundersFinalsHets.h"
 #include "matrices.h"
@@ -46,7 +47,7 @@ template<int nFounders> struct forwardsBackwardsAlgorithm<nFounders, true>
 		}
 		if(minAIGenerations == -1 || maxAIGenerations == -1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		int nFinals = recodedFinals.nRow;
 		for(int finalCounter = 0; finalCounter < nFinals; finalCounter++)

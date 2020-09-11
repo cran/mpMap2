@@ -16,11 +16,17 @@
 #include "estimateRF.h"
 #include "matrixChunks.h"
 #ifdef _OPENMP
+#if _OPENMP > 200805
+	#define omp_loop_type std::size_t
+#else 
+	#define omp_loop_type int
+#endif
 #include "mpMap2_openmp.h"
 #include <omp.h>
 #endif
 #include "warnings.h"
 #include "getMinAIGenerations.h"
+#include "throwInternal.h"
 template<int nFounders, int maxAlleles, bool infiniteSelfing> bool estimateRFSpecificDesign(rfhaps_internal_args& args, unsigned long long& progressCounter)
 {
 	std::size_t nFinals = args.finals.nrow(), nRecombLevels = args.recombinationFractions.size();
@@ -48,27 +54,17 @@ template<int nFounders, int maxAlleles, bool infiniteSelfing> bool estimateRFSpe
 	//We parallelise this array, even though it's over an iterator not an integer. So we use an integer and use that to work out how many steps forwards we need to move the iterator. We assume that the values are strictly increasing, otherwise this will never work. 
 	//Use this to only call setTxtProgressBar every 10 calls to updateProgress. Probably no point in updating status more frequently than that.
 	unsigned long long updateProgressCounter = 0;
+	std::vector<std::pair<int, int> >& pairsToEstimate = *args.pairsToEstimate;
 #ifdef _OPENMP
 	#pragma omp parallel 
 #endif
 	{
-		triangularIterator indexIterator = args.startPosition;
-		unsigned long long previousCounter = 0;
 #ifdef _OPENMP
 		#pragma omp for schedule(dynamic)
 #endif
-		for(unsigned long long counter = 0; counter < args.valuesToEstimateInChunk; counter++)
+		for(omp_loop_type counter = 0; counter < (omp_loop_type)pairsToEstimate.size(); counter++)
 		{
-			signed long long difference = counter - previousCounter;
-			if(difference < 0LL) throw std::runtime_error("Internal error");
-			while(difference > 0LL) 
-			{
-				indexIterator.next();
-				difference--;
-			}
-			previousCounter = counter;
-
-			std::pair<int, int> markerIndices = indexIterator.get();
+			std::pair<int, int> markerIndices = pairsToEstimate[counter];
 			int markerCounterRow = markerIndices.first, markerCounterColumn = markerIndices.second;
 
 			int markerPatternID1 = args.markerPatternData.markerPatternIDs[markerCounterRow];
@@ -166,31 +162,22 @@ template<int nFounders, int maxAlleles, bool infiniteSelfing> bool estimateRFSpe
 	//We parallelise this array, even though it's over an iterator not an integer. So we use an integer and use that to work out how many steps forwards we need to move the iterator. We assume that the values are strictly increasing, otherwise this will never work.
 	//Use this to only call setTxtProgressBar every 10 calls to updateProgress. Probably no point in updating status more frequently than that.
 	unsigned long long updateProgressCounter = 0;
+	std::vector<std::pair<int, int> >& pairsToEstimate = *args.pairsToEstimate;
 #ifdef _OPENMP
 	#pragma omp parallel 
 #endif
 	{
-		triangularIterator indexIterator = args.startPosition;
 		//Indexing is of the form table[allele1 * product1 + allele2*product2 + selfingGenerations * product3 + (ai OR funnel)]. Funnels come first. 
 		std::vector<int> table(maxAlleles*product1);
 
-		int previousCounter = 0;
 #ifdef _OPENMP
 		#pragma omp for schedule(dynamic)
 #endif
-		for(int counter = 0; counter < (int)args.valuesToEstimateInChunk; counter++)
+		for(omp_loop_type counter = 0; counter < (omp_loop_type)pairsToEstimate.size(); counter++)
 		{
 			std::fill(table.begin(), table.end(), 0);
-			int difference = counter - previousCounter;
-			if(difference < 0) throw std::runtime_error("Internal error");
-			while(difference > 0) 
-			{
-				indexIterator.next();
-				difference--;
-			}
-			previousCounter = counter;
 
-			std::pair<int, int> markerIndices = indexIterator.get();
+			std::pair<int, int> markerIndices = pairsToEstimate[counter];
 			int markerCounterRow = markerIndices.first, markerCounterColumn = markerIndices.second;
 
 			int markerPatternID1 = args.markerPatternData.markerPatternIDs[markerCounterRow];
@@ -404,7 +391,8 @@ template<int nFounders> bool estimateRFSpecificDesignInternal1(rfhaps_internal_a
 		case 64:
 			return estimateRFSpecificDesignInternal2<nFounders, 64>(args, counter);
 		default:
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
+			return false;
 	}
 }
 unsigned long long estimateLookup(rfhaps_internal_args& internal_args)
@@ -555,7 +543,8 @@ unsigned long long estimateLookup(rfhaps_internal_args& internal_args)
 			arraySize = sizeof(array2<64>);
 			break;
 		default:
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
+			return false;
 	}
 	int nMarkerPairs = 0;
 	for(std::vector<int>::iterator markerRowPattern = internal_args.rowPatterns.begin(); markerRowPattern != internal_args.rowPatterns.end(); markerRowPattern++)
@@ -565,7 +554,7 @@ unsigned long long estimateLookup(rfhaps_internal_args& internal_args)
 	}
 	return nRecombLevels * (maxSelfing - minSelfing + 1) * (nDifferentFunnels + maxAIGenerations - minAIGenerations + 1) * arraySize * nMarkerPairs;
 }
-bool toInternalArgs(estimateRFSpecificDesignArgs&& args, rfhaps_internal_args& internal_args, std::string& error)
+bool toInternalArgs(estimateRFSpecificDesignArgs& args, rfhaps_internal_args& internal_args, std::string& error)
 {
 	error = "";
 	std::stringstream ss;
@@ -698,7 +687,7 @@ bool toInternalArgs(estimateRFSpecificDesignArgs&& args, rfhaps_internal_args& i
 	internal_args.pedigree = args.pedigree;
 	internal_args.intercrossingGenerations.swap(intercrossingGenerations);
 	internal_args.selfingGenerations.swap(selfingGenerations);
-	internal_args.lineWeights.swap(args.lineWeights);
+	internal_args.lineWeights = args.lineWeights;
 	internal_args.markerPatternData.swap(markerPatternConversionArgs);
 	internal_args.hasAI = hasAIC;
 	internal_args.maxAlleles = maxAlleles;

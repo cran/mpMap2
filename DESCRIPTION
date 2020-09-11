@@ -1,8 +1,8 @@
 Package: mpMap2
 Type: Package
 Title: Genetic Analysis of Multi-Parent Recombinant Inbred Lines
-Version: 1.0.3
-Date: 2020-04-23
+Version: 1.0.4
+Date: 2020-09-06
 Author: Rohan Shah [aut, cre],
   Emma Huang [aut],
   Matthew Morell [ctb],
@@ -25,7 +25,7 @@ LinkingTo: Rcpp
 Suggests: testthat, knitr, rmarkdown, gridExtra, Heatplus
 Imports: ggplot2, Matrix, methods, qtl, igraph, fastcluster, pryr,
         nnls, RColorBrewer, jsonlite, progress, stats, sn, car
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Collate: 'Pillai.R' 'Rcpp_exceptions.R' 'map-class.R'
         'addExtraMarkerFromRawCall.R' 'addExtraMarkers.R'
         'canSkipValidity.R' 'pedigree-class.R' 'hetData-class.R'
@@ -66,6 +66,6 @@ Collate: 'Pillai.R' 'Rcpp_exceptions.R' 'map-class.R'
         'transposeProbabilities.R' 'twoParentPedigree.R' 'validation.R'
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2020-04-22 21:32:09 UTC; rshah
+Packaged: 2020-09-11 05:22:17 UTC; rshah
 Repository: CRAN
-Date/Publication: 2020-04-23 16:10:14 UTC
+Date/Publication: 2020-09-11 08:10:07 UTC

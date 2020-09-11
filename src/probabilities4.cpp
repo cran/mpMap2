@@ -1,3 +1,4 @@
+#include "throwInternal.h"
 #include "probabilities4.h"
 #include <cmath>
 #include <stdexcept>
@@ -202,7 +203,7 @@ template<> void genotypeProbabilitiesWithIntercross<4, false>(std::array<double,
 #ifdef INTERNAL_CHECKS
 	double sum = 0;
 	for (int i = 0; i < 18; i++) sum += prob[i];
-	if(fabs(sum - 1) > 1e-6) throw std::runtime_error("Internal error");
+	if(fabs(sum - 1) > 1e-6) THROWINTERNAL();
 #endif
 	prob[0] /= 4;
 	prob[1] /= 16;

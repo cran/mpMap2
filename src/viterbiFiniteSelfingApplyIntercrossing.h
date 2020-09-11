@@ -13,7 +13,7 @@
 	{
 		if(logIntercrossingSingleLociHaplotypeProbabilities == NULL || logIntercrossingHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb != 0)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		double logHomozygoteMissingProb = log(homozygoteMissingProb);
 		double logHeterozygoteMissingProb = log(heterozygoteMissingProb);
@@ -197,7 +197,7 @@ stopIdenticalSearch:
 	{
 		if(logIntercrossingSingleLociHaplotypeProbabilities == NULL || logIntercrossingHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb <= 0 || errorProb >= 1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		double logHomozygoteMissingProb = log(homozygoteMissingProb);
 		double logHeterozygoteMissingProb = log(heterozygoteMissingProb);

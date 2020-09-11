@@ -46,6 +46,6 @@ struct estimateRFSingleDesignInternalArgs
 	unsigned char* theta;
 	std::vector<std::pair<int, int> > uniquePatternPairs;
 };
-bool toInternalArgs(estimateRFSingleDesignArgs&& args, estimateRFSingleDesignInternalArgs& internalArgs, std::string& error);
+bool toInternalArgs(estimateRFSingleDesignArgs& args, estimateRFSingleDesignInternalArgs& internalArgs, std::string& error);
 bool estimateRFSingleDesignInternal(estimateRFSingleDesignInternalArgs& args);
 #endif

@@ -7,7 +7,7 @@ test_that("Check that we have the same results for an f2, with and without openm
 
 		.Call("omp_set_num_threads", 1, PACKAGE="mpMap2")
 		rf <- estimateRF(cross, gbLimit = 1)
-		.Call("omp_set_num_threads", 4, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		rf2 <- estimateRF(cross, gbLimit = 1)
 		expect_identical(rf, rf2)
 
@@ -17,7 +17,7 @@ test_that("Check that we have the same results for an f2, with and without openm
 
 		.Call("omp_set_num_threads", 1, PACKAGE="mpMap2")
 		rf <- estimateRF(cross, gbLimit = 1)
-		.Call("omp_set_num_threads", 4, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		rf2 <- estimateRF(cross, gbLimit = 1)
 		expect_identical(rf, rf2)
 

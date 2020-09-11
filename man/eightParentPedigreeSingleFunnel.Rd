@@ -38,7 +38,7 @@ pedigreeAsGraph <- pedigreeToGraph(pedigree)
 #Plot it
 \donttest{plot(pedigreeAsGraph)}
 #Write it to a file in DOT format
-\donttest{write.graph(graph = pedigreeAsGraph@graph, format = "dot", file = "./pedigree.dot")}
+\donttest{igraph::write.graph(graph = pedigreeAsGraph@graph, format = "dot", file = "./pedigree.dot")}
 }
 \seealso{
 \code{\link{eightParentPedigreeSingleFunnel}}, \code{\link{fourParentPedigreeSingleFunnel}}, \code{\link{fourParentPedigreeRandomFunnels}}, \code{\link{twoParentPedigree}}

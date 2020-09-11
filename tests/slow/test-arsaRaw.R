@@ -12,7 +12,7 @@ if(class(try(.Call("omp_set_num_threads", 1, PACKAGE="mpMap2"), silent=TRUE)) !=
 
 		.Call("omp_set_num_threads", 1, PACKAGE="mpMap2")
 		orderedSingleThreaded <- orderCross(grouped)
-		.Call("omp_set_num_threads", 16, PACKAGE="mpMap2")
+		.Call("omp_set_num_threads", 2, PACKAGE="mpMap2")
 		orderedMultiThreaded <- orderCross(grouped)
 		
 		correlationMultiThreaded <- cor(match(names(map[[1]]), markers(orderedMultiThreaded)), 1:101)

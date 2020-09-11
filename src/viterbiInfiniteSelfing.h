@@ -15,6 +15,7 @@
 #include "funnelHaplotypeToMarker.h"
 #include <limits>
 #include "joinMapWithExtra.h"
+#include "throwInternal.h"
 template<int nFounders> struct viterbiAlgorithm<nFounders, true>
 {
 	typedef typename expandedProbabilities<nFounders, true>::type expandedProbabilitiesType;
@@ -52,7 +53,7 @@ template<int nFounders> struct viterbiAlgorithm<nFounders, true>
 	{
 		if(errorProb != errorProb || errorProb < 0 || errorProb >= 1 || logIntercrossingHaplotypeProbabilities == NULL || logFunnelHaplotypeProbabilities == NULL || lineFunnelIDs == NULL || lineFunnelEncodings == NULL || intercrossingGenerations == NULL || selfingGenerations == NULL || minAIGenerations == -1 || maxAIGenerations == -1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		int nFinals = recodedFinals.nrow();
 		for(int finalCounter = 0; finalCounter < nFinals; finalCounter++)

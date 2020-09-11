@@ -4,6 +4,7 @@
 #include "getFunnel.h"
 #include "orderFunnel.h"
 #include "estimateRFCheckFunnels.h"
+#include "throwInternal.h"
 SEXP getAllFunnelsIncAIC(SEXP geneticData_sexp, SEXP standardise_sexp)
 {
 BEGIN_RCPP
@@ -72,7 +73,7 @@ BEGIN_RCPP
 	for(int lineCounter = 0; lineCounter < finalNames.size(); lineCounter++)
 	{
 		Rcpp::CharacterVector::iterator i = std::find(pedigreeLineNames.begin(), pedigreeLineNames.end(), finalNames[lineCounter]);
-		if(i == pedigreeLineNames.end()) throw std::runtime_error("Internal error");
+		if(i == pedigreeLineNames.end()) THROWINTERNAL();
 		std::size_t pedigreeRow = std::distance(pedigreeLineNames.begin(), i);
 		if(intercrossingGenerations[lineCounter] == 0)
 		{

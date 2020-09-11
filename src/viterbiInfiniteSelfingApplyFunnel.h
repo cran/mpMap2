@@ -13,7 +13,7 @@
 	{
 		if(logFunnelHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb != 0)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		
 		//Initialise the algorithm. For infinite generations of selfing, we don't need to bother with the hetData object, as there are no hets
@@ -127,7 +127,7 @@ stopIdenticalSearch:
 	{
 		if(logFunnelHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb <= 0 || errorProb >= 1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		//Initialise the algorithm. For infinite generations of selfing, we don't need to bother with the hetData object, as there are no hets
 		funnelEncoding enc = (*lineFunnelEncodings)[(*lineFunnelIDs)[finalCounter]];

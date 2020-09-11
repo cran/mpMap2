@@ -27,7 +27,7 @@
 #' #Plot it
 #' \donttest{plot(pedigreeAsGraph)}
 #' #Write it to a file in DOT format
-# \donttest{write.graph(graph = pedigreeAsGraph@@graph, format = "dot", file = "./pedigree.dot")}
+# \donttest{igraph::write.graph(graph = pedigreeAsGraph@@graph, format = "dot", file = "./pedigree.dot")}
 # This is written in C because otherwise it's just too damn slow (especially for generating the huge populations that we want to use to get numerically accurate results for unit testing)
 eightParentPedigreeImproperFunnels <- function(initialPopulationSize, selfingGenerations, nSeeds)
 {

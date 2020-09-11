@@ -19,7 +19,8 @@
 #include <omp.h>
 #endif
 #include "matrix.h"
-bool toInternalArgs(estimateRFSingleDesignArgs&& args, estimateRFSingleDesignInternalArgs& internal_args, std::string& error)
+#include "throwInternal.h"
+bool toInternalArgs(estimateRFSingleDesignArgs& args, estimateRFSingleDesignInternalArgs& internal_args, std::string& error)
 {
 	error = "";
 	std::stringstream ss;
@@ -320,7 +321,7 @@ template<int nFounders, bool infiniteSelfing> bool estimateRFSingleDesignInterna
 #ifndef NDEBUG
 				if(markerPatternID1 != markerPatternIDRow || markerPatternID2 != markerPatternIDColumn)
 				{
-					throw std::runtime_error("Internal error");
+					THROWINTERNAL();
 				}
 #endif
 				std::fill(table.begin(), table.end(), 0);

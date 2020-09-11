@@ -19,6 +19,7 @@
 #include "haldaneToRf.h"
 #include "generateKeys.h"
 #include "getMinAIGenerations.h"
+#include "throwInternal.h"
 template<int nFounders, bool infiniteSelfing> void imputedFoundersInternal2(Rcpp::IntegerMatrix founders, Rcpp::IntegerMatrix finals, Rcpp::S4 pedigree, Rcpp::List hetData, Rcpp::IntegerMatrix results, Rcpp::IntegerMatrix resultsErrors, double homozygoteMissingProb, double heterozygoteMissingProb, double errorProb, Rcpp::IntegerMatrix key, positionData& allPositions, bool showProgress)
 {
 	//Work out maximum number of positions per chromosome

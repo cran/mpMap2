@@ -1,3 +1,4 @@
+#include "throwInternal.h"
 #include "matrixChunks.h"
 triangularIterator::triangularIterator(const std::vector<int>& markerRows, const std::vector<int>& markerColumns)
 	: markerRows(markerRows), markerColumns(markerColumns), markerRow(markerRows.begin()), markerColumn(markerColumns.begin())
@@ -10,7 +11,7 @@ std::pair<int, int> triangularIterator::get() const
 }
 triangularIterator& triangularIterator::operator=(const triangularIterator& other)
 {
-	if(&markerRows != &other.markerRows || &markerColumns != &other.markerColumns) throw std::runtime_error("Internal error");
+	if(&markerRows != &other.markerRows || &markerColumns != &other.markerColumns) THROWINTERNAL();
 	markerRow = other.markerRow;
 	markerColumn = other.markerColumn;
 	return *this;
@@ -45,7 +46,7 @@ std::pair<int, int> triangularIteratorPredicates::get() const
 }
 triangularIteratorPredicates& triangularIteratorPredicates::operator=(const triangularIteratorPredicates& other)
 {
-	if(&markerRows != &other.markerRows || &markerColumns != &other.markerColumns) throw std::runtime_error("Internal error");
+	if(&markerRows != &other.markerRows || &markerColumns != &other.markerColumns) THROWINTERNAL();
 	markerRow = other.markerRow;
 	markerColumn = other.markerColumn;
 	predicate = other.predicate;

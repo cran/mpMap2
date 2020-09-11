@@ -1,9 +1,10 @@
 #ifdef USE_BOOST
 #include "stripPedigree.h"
-#include <boost/graph/adjacency_list.h>
-#include <boost/graph/depth_first_search.h>
-#include <boost/graph/topological_sort.h>
-#include <boost/graph/reverse_graph.h>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/depth_first_search.hpp>
+#include <boost/graph/topological_sort.hpp>
+#include <boost/graph/reverse_graph.hpp>
+#include "throwInternal.h"
 enum pedigreeEdgeType
 {
 	MOTHER, FATHER
@@ -64,7 +65,7 @@ BEGIN_RCPP
 			boost::add_edge(pedigreeRow, father[pedigreeRow]-1, FATHER, graph);
 		}
 		if(mother[pedigreeRow] == 0 && father[pedigreeRow] == 0) nFounders++;
-		if((mother[pedigreeRow] == 0) ^ (father[pedigreeRow] == 0)) throw std::runtime_error("Internal error");
+		if((mother[pedigreeRow] == 0) ^ (father[pedigreeRow] == 0)) THROWINTERNAL();
 
 		sortedLineNames.push_back(std::make_pair(Rcpp::as<std::string>(lineNames[pedigreeRow]), pedigreeRow));
 	}
@@ -76,7 +77,7 @@ BEGIN_RCPP
 	for(std::size_t finalCounter = 0; finalCounter < finalLines.size(); finalCounter++)
 	{
 		std::vector<std::pair<std::string, int> >::iterator i = std::lower_bound(sortedLineNames.begin(), sortedLineNames.end(), std::make_pair(Rcpp::as<std::string>(finalLines[finalCounter]), 0), lineNamesSorter);
-		if(i == sortedLineNames.end()) throw std::runtime_error("Internal error");
+		if(i == sortedLineNames.end()) THROWINTERNAL();
 		boost::depth_first_visit(graph, i->second, boost::make_dfs_visitor(boost::null_visitor()), &(colourVector[0]));
 	}
 

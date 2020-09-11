@@ -1,4 +1,5 @@
 #include "sixteenParentPedigreeRandomFunnels.h"
+#include "throwInternal.h"
 #include "Rcpp.h"
 //pairs <- combn(1:16, 2)
 //pairs <- apply(pairs, 2, function(x) c(min(x), max(x)))
@@ -70,7 +71,7 @@ BEGIN_RCPP
 		father[16 + i] = sixteenParentRandomFunnelPairs[i][1];
 		if(sixteenParentRandomFunnelPairs[i][0] < 0 || sixteenParentRandomFunnelPairs[i][1] < 0)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 	}
 

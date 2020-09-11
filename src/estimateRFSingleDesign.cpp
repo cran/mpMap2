@@ -198,7 +198,7 @@ SEXP estimateRFSingleDesign(SEXP object_, SEXP recombinationFractions_, SEXP mar
 		internalArgs.markerRows = &markerRows;
 		internalArgs.markerColumns = &markerColumns;
 
-		bool converted = toInternalArgs(std::move(args), internalArgs, error);
+		bool converted = toInternalArgs(args, internalArgs, error);
 		if(!converted)
 		{
 			std::stringstream ss;

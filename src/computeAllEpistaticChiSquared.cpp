@@ -1,3 +1,4 @@
+#include "throwInternal.h"
 #include "computeAllEpistaticChiSquared.h"
 #ifdef _OPENMP
 #include <omp.h>
@@ -163,7 +164,7 @@ BEGIN_RCPP
 					}
 				}
 #ifdef INTERNAL_CHECKS
-				if(fabs(sumExpected - sumObs) > 1e-4) throw std::runtime_error("Internal error");
+				if(fabs(sumExpected - sumObs) > 1e-4) THROWINTERNAL();
 #endif
 				returnValue(marker1, marker2) = returnValue(marker2, marker1) = accumulated;
 			}

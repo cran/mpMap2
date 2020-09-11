@@ -1,4 +1,5 @@
 #include "parsePurdy.h"
+#include "throwInternal.h"
 #include <set>
 bool split(std::string input, Rcpp::Function& gregexpr, std::string& output1, std::string& output2, int& level)
 {
@@ -162,7 +163,7 @@ BEGIN_RCPP
 	{
 		std::string encoding = Rcpp::as<std::string>(format[i]);
 		int formatLine = lineIDs[encoding];
-		if(Rcpp::as<std::string>(results(formatLine, 0)) != encoding) throw std::runtime_error("Internal error");
+		if(Rcpp::as<std::string>(results(formatLine, 0)) != encoding) THROWINTERNAL();
 		results(lineIDs.size() + i, 0) = Rcpp::as<std::string>(names[i]);
 		results(lineIDs.size() + i, 1) = results(formatLine, 1);
 		results(lineIDs.size() + i, 2) = results(formatLine, 2);

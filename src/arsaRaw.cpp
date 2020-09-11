@@ -1,4 +1,5 @@
 #include "arsaRaw.h"
+#include "throwInternal.h"
 #include <Rcpp.h>
 #ifdef _OPENMP
 #include <omp.h>

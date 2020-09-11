@@ -13,7 +13,7 @@
 	{
 		if(logFunnelSingleLociHaplotypeProbabilities == NULL || logFunnelHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb != 0)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		const double log2 = log(2.0);
 		double logHomozygoteMissingProb = log(homozygoteMissingProb);
@@ -112,7 +112,7 @@
 						//Get the shortest one, and check that it's not negative infinity.
 						std::vector<double>::iterator longest = std::max_element(working.begin(), working.end());
 						//This error is no longer valid, because some states are impossible to ever be in - E.g. heterozygote {1,2} with funnel {1,2,3,4} and no intercrossing. In this case all the probabilities are zero and all the log probabilities are -inf. So *longest == -std::numeric_limits<double>::infinity() doesn't indicate that there is no valid next state. It indicates that the state for the previous marker is impossible. 
-						//if(*longest == -std::numeric_limits<double>::infinity()) throw std::runtime_error("Internal error");
+						//if(*longest == -std::numeric_limits<double>::infinity()) THROWINTERNAL();
 						int bestPrevious = (int)std::distance(working.begin(), longest);
 						
 						memcpy(&(intermediate2(encodingTheseFounders, identicalIndex)), &(intermediate1(bestPrevious, identicalIndex)), sizeof(int)*(positionCounter - startPosition + 1 - identicalIndex));
@@ -167,7 +167,7 @@
 							//Get the longest one, and check that it's not negative infinity.
 							std::vector<double>::iterator longest = std::max_element(working.begin(), working.end());
 							//It's not an error for the longest path to be -Inf, because some states are impossible to ever be in - E.g. heterozygote {1,2} with funnel {1,2,3,4} and no intercrossing. In this case all the probabilities are zero and all the log probabilities are -inf. So *longest == -std::numeric_limits<double>::infinity() doesn't indicate that there is no valid next state. It indicates that the state for the previous marker is impossible. 
-							//if(*longest == -std::numeric_limits<double>::infinity()) throw std::runtime_error("Internal error");
+							//if(*longest == -std::numeric_limits<double>::infinity()) THROWINTERNAL();
 							int bestPrevious = (int)std::distance(working.begin(), longest);
 							
 							memcpy(&(intermediate2(encodingTheseFounders, identicalIndex)), &(intermediate1(bestPrevious, identicalIndex)), sizeof(int)*(positionCounter - startPosition + 1 - identicalIndex));
@@ -213,7 +213,7 @@ stopIdenticalSearch:
 	{
 		if(logFunnelSingleLociHaplotypeProbabilities == NULL || logFunnelHaplotypeProbabilities == NULL || errorProb != errorProb || errorProb <= 0 || errorProb >= 1)
 		{
-			throw std::runtime_error("Internal error");
+			THROWINTERNAL();
 		}
 		const double log2 = log(2.0);
 
@@ -322,7 +322,7 @@ stopIdenticalSearch:
 						//Get the shortest one, and check that it's not negative infinity.
 						std::vector<double>::iterator longest = std::max_element(working.begin(), working.end());
 						//This error is no longer valid, because some states are impossible to ever be in - E.g. heterozygote {1,2} with funnel {1,2,3,4} and no intercrossing. In this case all the probabilities are zero and all the log probabilities are -inf. So *longest == -std::numeric_limits<double>::infinity() doesn't indicate that there is no valid next state. It indicates that the state for the previous marker is impossible. 
-						//if(*longest == -std::numeric_limits<double>::infinity()) throw std::runtime_error("Internal error");
+						//if(*longest == -std::numeric_limits<double>::infinity()) THROWINTERNAL();
 						int bestPrevious = (int)std::distance(working.begin(), longest);
 						
 						memcpy(&(intermediate2(encodingTheseFounders, identicalIndex)), &(intermediate1(bestPrevious, identicalIndex)), sizeof(int)*(positionCounter - startPosition + 1 - identicalIndex));
@@ -388,7 +388,7 @@ stopIdenticalSearch:
 							//Get the shortest one, and check that it's not negative infinity.
 							std::vector<double>::iterator longest = std::max_element(working.begin(), working.end());
 							//This error is no longer valid, because some states are impossible to ever be in - E.g. heterozygote {1,2} with funnel {1,2,3,4} and no intercrossing. In this case all the probabilities are zero and all the log probabilities are -inf. So *longest == -std::numeric_limits<double>::infinity() doesn't indicate that there is no valid next state. It indicates that the state for the previous marker is impossible. 
-							//if(*longest == -std::numeric_limits<double>::infinity()) throw std::runtime_error("Internal error");
+							//if(*longest == -std::numeric_limits<double>::infinity()) THROWINTERNAL();
 							int bestPrevious = (int)std::distance(working.begin(), longest);
 							
 							memcpy(&(intermediate2(encodingTheseFounders, identicalIndex)), &(intermediate1(bestPrevious, identicalIndex)), sizeof(int)*(positionCounter - startPosition + 1 - identicalIndex));

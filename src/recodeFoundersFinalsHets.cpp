@@ -1,4 +1,5 @@
 #include "recodeFoundersFinalsHets.h"
+#include "throwInternal.h"
 /*
 	Re-code the founder and final marker genotypes so that they always start at 0 and go up to n-1 where n is the number of distinct marker alleles at that particular marker. The maximum number of alleles across all the markers is recorded and output. 
 */
@@ -12,7 +13,7 @@ void recodeFoundersFinalsHets(recodeDataStruct& inputs)
 	std::map<int, int> founderTranslations, finalTranslations;
 	if(Rcpp::as<Rcpp::List>(inputs.hetData).size() != nMarkers)
 	{
-		throw std::runtime_error("Internal error");
+		THROWINTERNAL();
 	}
 	for(long markerCounter = 0; markerCounter < nMarkers; markerCounter++)
 	{

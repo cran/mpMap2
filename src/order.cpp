@@ -1,6 +1,7 @@
 #include "order.h"
 #include "impute.h"
 #include "arsaRaw.h"
+#include "throwInternal.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -317,7 +318,7 @@ BEGIN_RCPP
 				}
 				else
 				{
-					throw std::runtime_error("Internal error");
+					THROWINTERNAL();
 				}
 			}
 		}
